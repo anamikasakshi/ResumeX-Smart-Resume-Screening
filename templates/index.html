@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResumeX | Smart Resume Screening</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for("static", filename="style.css") }}">
+</head>
+<body>
+  <canvas id="stars"></canvas>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">RX</div>
+        <div>
+          <div class="brand-name">Resume<span>X</span></div>
+          <div class="brand-sub">Smart Screening Engine</div>
+        </div>
+      </div>
+      <div class="status"><i></i> AI screening ready <span id="modeBadge" class="mode-badge">RAG</span></div>
+    </header>
+
+    <section class="hero">
+      <div class="eyebrow">IBM GENAI PROJECT • CANDIDATE INTELLIGENCE</div>
+      <h1>Find the right candidate<br><span>before the pile grows.</span></h1>
+      <p>Upload resumes, describe the role, and let ResumeX score candidates using NLP-powered relevance, skill matching, and experience analysis.</p>
+    </section>
+
+    <section class="workspace">
+      <form id="screenForm">
+        <div class="panel job-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="step">01</span>
+              <h2>Job requirements</h2>
+            </div>
+            <span class="hint">Describe the role</span>
+          </div>
+
+          <label for="jobDescription">Job description</label>
+          <textarea id="jobDescription" name="job_description" placeholder="Example: We are looking for a Python developer with experience in machine learning, REST APIs, SQL and Docker..." required></textarea>
+
+          <div class="quick-tags">
+            <button type="button" data-fill="Python developer with machine learning, NLP, SQL, REST API and Docker experience.">AI / ML</button>
+            <button type="button" data-fill="Java developer with Spring Boot, REST APIs, SQL, Git and Docker experience.">Java Backend</button>
+            <button type="button" data-fill="Frontend developer with React, JavaScript, TypeScript, HTML, CSS and Git experience.">Frontend</button>
+          </div>
+        </div>
+
+        <div class="panel upload-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="step">02</span>
+              <h2>Candidate resumes</h2>
+            </div>
+            <span class="hint">PDF · DOCX · TXT</span>
+          </div>
+
+          <label class="dropzone" id="dropzone" for="resumes">
+            <input id="resumes" name="resumes" type="file" accept=".pdf,.docx,.txt" multiple required>
+            <div class="upload-icon">↑</div>
+            <strong>Drop resumes here</strong>
+            <span>or click to browse multiple files</span>
+            <small>Maximum 4 MB per request on Vercel</small>
+          </label>
+
+          <div id="fileList" class="file-list"></div>
+
+          <button class="primary-btn" type="submit" id="screenBtn">
+            <span>Screen candidates</span>
+            <b>→</b>
+          </button>
+          <div id="progress" class="progress"><div></div></div>
+        </div>
+      </form>
+
+      <section id="results" class="results hidden">
+        <div class="results-header">
+          <div>
+            <div class="eyebrow">SCREENING COMPLETE</div>
+            <h2>Candidate ranking</h2>
+          </div>
+          <div class="processed" id="processed"></div>
+        </div>
+
+        <div id="errorBox" class="error-box hidden"></div>
+        <div id="rankingList" class="ranking-list"></div>
+        <div class="fairness-note"><b>Responsible AI:</b> ranking uses job-related resume evidence only. It does not use protected attributes. Human review is required before any real hiring decision.</div>
+      </section>
+    </section>
+
+    <footer>
+      <span>ResumeX</span>
+      <span>Transparent scoring • Local processing • Academic prototype</span>
+    </footer>
+  </main>
+
+  <script src="{{ url_for("static", filename="app.js") }}"></script>
+</body>
+</html>
